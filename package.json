@@ -1,0 +1,38 @@
+{
+  "name": "react-smooth-number-counter",
+  "version": "0.0.5",
+  "main": "dist/number-counter.js",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kim-elijah-sol/number-counter"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "kim elijah sol",
+    "email": "kimelijahsol@gmail.com",
+    "url": "https://github.com/kim-elijah-sol/"
+  },
+  "dependencies": {},
+  "scripts": {},
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "keywords": [
+    "react",
+    "smooth",
+    "number",
+    "counter",
+    "component",
+    "kimchi"
+  ]
+}
