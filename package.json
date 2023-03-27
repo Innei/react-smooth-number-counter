@@ -1,19 +1,20 @@
 {
-  "name": "react-smooth-number-counter",
-  "version": "0.0.5",
+  "name": "@reactify-components/smooth-number-counter",
+  "version": "0.0.1",
   "main": "dist/number-counter.js",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/kim-elijah-sol/number-counter"
+    "url": "https://github.com/innei/react-smooth-number-counter"
   },
   "license": "MIT",
   "author": {
-    "name": "kim elijah sol",
-    "email": "kimelijahsol@gmail.com",
-    "url": "https://github.com/kim-elijah-sol/"
+    "name": "kim elijah sol & Innei",
+    "url": "https://github.com/innei"
   },
-  "dependencies": {},
+  "peerDependencies": {
+    "react": ">=17 || >=18 || >=16"
+  },
   "scripts": {},
   "browserslist": {
     "production": [
@@ -34,5 +35,13 @@
     "counter",
     "component",
     "kimchi"
-  ]
+  ],
+  "devDependencies": {
+    "@innei/prettier": "^0.9.8",
+    "@types/react": "^18.0.29",
+    "@types/react-dom": "^18.0.11",
+    "prettier": "^2.8.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
