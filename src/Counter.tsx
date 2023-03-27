@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
+import type { FC } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 const SEQUENCES = [
   '0',
@@ -198,10 +199,9 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
         }
       : {
           left: '50%',
-          transform:
-            'translateX(' +
-            (loaded ? (getBoxWidth() - suffix_width) / 2 + 'px' : '-50%') +
-            ')',
+          transform: `translateX(${
+            loaded ? `${(getBoxWidth() - suffix_width) / 2}px` : '-50%'
+          })`,
         }
 
   const suffixStyle: React.CSSProperties = {
@@ -210,7 +210,7 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
     transition:
       settingCnt.current >= 2
         ? sequenceTransition
-        : (((sequence.length - 1) / sequence.length) * transition) / 700 + 's',
+        : `${(((sequence.length - 1) / sequence.length) * transition) / 700}s`,
 
     ...inherit,
     ...suffixPositionStyleByAlign,
@@ -238,11 +238,11 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
     if (nextSequence.length >= prevSequence.length) {
       setSequence(nextSequence)
     } else {
-      const temp_sequence = nextSequence.map(function (_, index) {
+      const temp_sequence = nextSequence.map((_, index) => {
         return prevSequence[index] ? _ : '0'
       })
       setSequence(temp_sequence)
-      setTimeout(function () {
+      setTimeout(() => {
         setSequence(nextSequence)
       }, transition / 2)
     }
@@ -253,15 +253,15 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
     const max = 99999
     const min = 10000
     const id = Math.floor(Math.random() * (max - min + 1)) + min
-    return props.id || 'number-counter-' + id
+    return props.id || `number-counter-${id}`
   }, [props.id])
 
   return (
     <div
       id={id}
-      className={
-        'number-counter' + (props.className ? ' ' + props.className : '')
-      }
+      className={`number-counter${
+        props.className ? ` ${props.className}` : ''
+      }`}
       style={{ ...numberCounterStyle, width: getWidth() }}
     >
       {sequence.map((item, index) => (
