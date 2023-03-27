@@ -1,8 +1,4 @@
-import React, { FC } from 'react'
-import { useMemo } from 'react'
-import { useState } from 'react'
-import { useRef } from 'react'
-import { useEffect } from 'react'
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 
 const SEQUENCES = [
   '0',
@@ -30,12 +26,13 @@ export interface NumberCountProps {
   transition?: number
   className?: string
   id?: string
+  suffix?: string
 }
 export const NumberCounter: FC<NumberCountProps> = (props) => {
   const { value, align = 'left', transition = 1000 } = props
 
-  const mockRef = useRef(null)
-  const suffixRef = useRef(null)
+  const mockRef = useRef<HTMLDivElement>(null)
+  const suffixRef = useRef<HTMLDivElement>(null)
   const settingCnt = useRef(0)
 
   const [sequence, setSequence] = useState(['0'])
@@ -49,13 +46,13 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
   }s cubic-bezier(0, 0.6, 0.35, 1)`
   const loaded = boxStyle.width !== -1 && boxStyle.height !== -1
 
-  const numberCounterStyle = {
+  const numberCounterStyle: React.CSSProperties = {
     position: 'relative',
     display: 'inline-block',
     height: boxStyle.height,
   }
 
-  const sequenceScrollStyle = {
+  const sequenceScrollStyle: React.CSSProperties = {
     width: '100%',
     transition: sequenceTransition,
     position: 'absolute',
@@ -63,14 +60,14 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
     ...inherit,
   }
 
-  const sequenceStyle = {
+  const sequenceStyle: React.CSSProperties = {
     width: '100%',
     height: boxStyle.height,
     textAlign: 'center',
     ...inherit,
   }
 
-  const mockStyle = {
+  const mockStyle: React.CSSProperties = {
     position: 'fixed',
     left: -9999,
     top: -9999,
@@ -86,7 +83,7 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
       transform: `translateY(-${translate_y}%)`,
       position: 'absolute',
       ...inherit,
-    }
+    } as React.CSSProperties
   }
 
   const getTop = (e) => {
@@ -119,7 +116,7 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
       )
     }, 0)
 
-    const sequenceBoxStyleByAlign =
+    const sequenceBoxStyleByAlign: React.CSSProperties =
       align === 'left'
         ? {
             position: 'relative',
@@ -147,7 +144,7 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
           ? boxStyle.width * 0.67
           : boxStyle.width,
       height: boxStyle.height,
-      position: 'relative',
+
       overflow: 'hidden',
       display: 'inline-block',
       ...inherit,
@@ -207,7 +204,7 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
             ')',
         }
 
-  const suffix_style = {
+  const suffixStyle: React.CSSProperties = {
     position: 'absolute',
     top: 0,
     transition:
@@ -219,43 +216,38 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
     ...suffixPositionStyleByAlign,
   }
 
-  useEffect(
-    function () {
-      if (!loaded && mockRef.current) {
-        setTimeout(function () {
-          setBoxStyle({
-            width: mockRef.current.clientWidth,
-            height: mockRef.current.clientHeight,
-          })
-        }, 100)
-      }
-    },
-    [loaded, mockRef],
-  )
-
-  useEffect(
-    function () {
-      const prevSequence = [...sequence]
-      const nextSequence = value
-        .toString()
-        .replace(/,/gi, '')
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        .split('')
-      if (nextSequence.length >= prevSequence.length) {
-        setSequence(nextSequence)
-      } else {
-        const temp_sequence = nextSequence.map(function (_, index) {
-          return prevSequence[index] ? _ : '0'
+  useEffect(() => {
+    if (!loaded && mockRef.current) {
+      setTimeout(() => {
+        if (!mockRef.current) return
+        setBoxStyle({
+          width: mockRef.current.clientWidth,
+          height: mockRef.current.clientHeight,
         })
-        setSequence(temp_sequence)
-        setTimeout(function () {
-          setSequence(nextSequence)
-        }, transition / 2)
-      }
-      settingCnt.current += 1
-    },
-    [props.value],
-  )
+      }, 100)
+    }
+  }, [loaded, mockRef])
+
+  useEffect(() => {
+    const prevSequence = [...sequence]
+    const nextSequence = value
+      .toString()
+      .replace(/,/gi, '')
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      .split('')
+    if (nextSequence.length >= prevSequence.length) {
+      setSequence(nextSequence)
+    } else {
+      const temp_sequence = nextSequence.map(function (_, index) {
+        return prevSequence[index] ? _ : '0'
+      })
+      setSequence(temp_sequence)
+      setTimeout(function () {
+        setSequence(nextSequence)
+      }, transition / 2)
+    }
+    settingCnt.current += 1
+  }, [props.value])
 
   const id = useMemo(() => {
     const max = 99999
@@ -293,7 +285,7 @@ export const NumberCounter: FC<NumberCountProps> = (props) => {
           </div>
         </React.Fragment>
       ))}
-      <div style={suffix_style} ref={suffixRef}>
+      <div style={suffixStyle} ref={suffixRef}>
         {props.suffix}
       </div>
       <div ref={mockRef} style={mockStyle}>

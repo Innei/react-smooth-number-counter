@@ -1,7 +1,16 @@
 {
   "name": "@reactify-components/smooth-number-counter",
   "version": "0.0.1",
-  "main": "dist/number-counter.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "private": false,
   "repository": {
     "type": "git",
@@ -15,7 +24,10 @@
   "peerDependencies": {
     "react": ">=17 || >=18 || >=16"
   },
-  "scripts": {},
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsup src/index.ts --dts --target es2020 --format cjs,esm --external react,react-dom --sourcemap"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -42,6 +54,7 @@
     "@types/react-dom": "^18.0.11",
     "prettier": "^2.8.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tsup": "^6.7.0"
   }
 }
