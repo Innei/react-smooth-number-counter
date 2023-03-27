@@ -1,6 +1,6 @@
 {
   "name": "@reactify-components/smooth-number-counter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "exports": {
